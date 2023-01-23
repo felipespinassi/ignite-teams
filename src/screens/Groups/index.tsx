@@ -1,3 +1,4 @@
+import { GroupCard } from "@components/GroupCard";
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
 import { Text } from "react-native";
@@ -8,6 +9,7 @@ export function Groups() {
     <Container>
       <Header showBackButton />
       <HighLight title="Turmas" subtitle="Jogue com a sua turma" />
+      <GroupCard title="Galera do ignite" />
     </Container>
   );
 }
