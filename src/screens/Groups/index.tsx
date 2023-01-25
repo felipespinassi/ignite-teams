@@ -8,7 +8,7 @@ import { FlatList, Text } from "react-native";
 import { Container } from "./styles";
 
 export function Groups() {
-  const [groups, setGroups] = useState<string[]>([]);
+  const [groups, setGroups] = useState<string[]>(["Família", "Expedy"]);
 
   return (
     <Container>
