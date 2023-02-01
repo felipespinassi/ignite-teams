@@ -3,10 +3,11 @@ import { GroupCard } from "@components/GroupCard";
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
 import { ListEmpty } from "@components/ListEmpty";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { FlatList, Text } from "react-native";
 import { Container } from "./styles";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { groupsGetAll } from "@storage/group/groupsGetAll";
 
 export function Groups() {
   const [groups, setGroups] = useState<string[]>(["Família", "Expedy"]);
@@ -16,6 +17,20 @@ export function Groups() {
   function handleNewGroup() {
     navigation.navigate("new");
   }
+
+  async function fetchGroups() {
+    try {
+      const data = await groupsGetAll();
+      setGroups(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useFocusEffect(
+    useCallback(() => {
+      fetchGroups();
+    }, [groups])
+  );
 
   return (
     <Container>
