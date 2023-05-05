@@ -3,9 +3,9 @@ import { Filter } from "@components/Filter";
 import { Header } from "@components/Header";
 import { HighLight } from "@components/HighLight";
 import { Input } from "@components/Input";
-import { Alert, FlatList } from "react-native";
+import { Alert, FlatList, TextInput } from "react-native";
 import { Container, Form, HeaderList, NumbersOfPlayers } from "./style";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { PlayerCard } from "@components/PlayerCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
@@ -43,9 +43,9 @@ export function Players() {
     };
     try {
       await playerAddByGroup(newPlayer, group);
+      setNewPlayerName("");
       fetchPLayersByTeam();
       const players = await playersGetByGroup(group);
-      console.log(players);
     } catch (error) {
       if (error instanceof AppError) {
         Alert.alert("Nova pessoa", error.message);
@@ -83,6 +83,9 @@ export function Players() {
           placeholder="Nome da pessoa"
           autoCorrect={false}
           onChangeText={setNewPlayerName}
+          value={newPlayerName}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
         <ButtonIcon onPress={handleAddPlayer} icon="add" />
       </Form>
